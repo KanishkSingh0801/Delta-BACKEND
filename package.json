@@ -1,0 +1,17 @@
+{
+  "name": "usageofimport",
+  "version": "1.0.0",
+  "description": "This file is created to demonstrate the use of 'import' keyword",
+  "main": "math.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kanishk",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.10.0"
+  }
+}
