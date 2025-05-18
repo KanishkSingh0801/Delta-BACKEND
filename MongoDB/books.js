@@ -23,6 +23,7 @@ const bookSchema = mongoose.Schema( {
     price : {
         type : Number,
         required : true,
+        min : [1, "Price is too low for amazon selling."],
     },
     discount : {
         type : Number,
@@ -30,16 +31,17 @@ const bookSchema = mongoose.Schema( {
     },
 });
 
-const book = new mongoose.model("book", bookSchema);
+const book = new mongoose.model("Book", bookSchema);
 
 let book1 = new book({
     title : "Game of thrones",
     author : "Bran the Broken",
-    price : 20.99,
+    price : 20,
 });
 
 book1.save().then((res) => {
     console.log(res);
 }).catch(err => {
+    // console.log(err.errors.price.properties.message);
     console.log(err);
 })
