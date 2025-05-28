@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const ExpressError = require("./ExpressError");
 
 // app.use((req, res, next) => { //MiddleWare always run even if the requested path is wrong
 //     // let {query} = req.query;
@@ -29,7 +30,8 @@ app.use("/api", (req, res, next) => {
         next();
     }
     else {
-        throw new Error("ACCESS DENIED !!");
+        // throw new Error("ACCESS DENIED !!");
+        throw new ExpressError(401, "ACCESS DENIED"); //Throwing custom errors using ExpressError class made by us
     }
 })
 app.get("/api", (req,res) => {
@@ -42,6 +44,24 @@ app.get("/", (req, res) => {
 
 app.get("/random", (req, res) => {
   res.send("THis is a random page");
+});
+
+app.get("/err", (req, res) => {
+  abcd = abcd;
+});
+
+app.get("/admin", (req, res) => {
+  throw new ExpressError(403, "Unauthorized!"); //sending our own error
+})
+
+app.use((err, req, res, next) => { //custom error handler
+console.log("--------- ERROR --------");
+// next();
+//next(err); //to trigger the error handler of express
+//res.send(err); //to throw actual error on client side
+
+let {status = 500, message = "Some Error Occurred"} = err;
+res.status(status).send(message);
 });
 
 app.listen(8080, () => {
